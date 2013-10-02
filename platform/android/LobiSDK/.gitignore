@@ -1,0 +1,14 @@
+*.class
+*.obj
+*.a
+*.so
+
+.project
+.classpath
+local.properties
+
+assets/
+bin/
+gen/
+libs/
+obj/

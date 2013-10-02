@@ -7,8 +7,9 @@ LOCAL_MODULE := cocos2dlua_shared
 LOCAL_MODULE_FILENAME := libcocos2dlua
 
 LOCAL_SRC_FILES := lobisdksample/main.cpp \
-                   lobisdksample/lobisdk.cpp \
-                   ../../Classes/AppDelegate.cpp
+                   lobisdksample/LobiSDK.cpp \
+                   ../../Classes/AppDelegate.cpp \
+                   ../../Classes/LuaLobi.cpp
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes

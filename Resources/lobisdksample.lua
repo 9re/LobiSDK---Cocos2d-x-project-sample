@@ -1,4 +1,7 @@
 -- for CCLuaEngine traceback
+local visibleSize = CCDirector:sharedDirector():getVisibleSize()
+local origin = CCDirector:sharedDirector():getVisibleOrigin()
+
 function __G__TRACKBACK__(msg)
     print("----------------------------------------")
     print("LUA ERROR: " .. tostring(msg) .. "\n")
@@ -11,26 +14,48 @@ local function cclog(...)
 end
 
 local function openChatHandler()
+   LobiSDK:showChatView()
+end
+
+local function debugResetHandler()
+   LobiSDK:debugReset()
+end
+
+local function createMenuItem(labelName, callback, y)
+   local label = CCLabelTTF:create()
+   label:setFontSize(30)
+   label:setHorizontalAlignment(kCCTextAlignmentRight)
+   label:setString(labelName)
+
+   local menuItem = CCMenuItemLabel:create(label)
+   menuItem:registerScriptTapHandler(callback)
+   menuItem:setPosition(ccp(0, y))
+   return menuItem
+end
+
+local function createMenu(items)
+   local layerMenu = CCLayer:create()
+   local array = CCArray:createWithCapacity(#items / 2)
+   local i = 0
+   for label, handler in pairs(items)
+   do
+      array:addObject(createMenuItem(label, handler, -60 * i))
+      i = i + 1
+   end
    
+   local menu = CCMenu:createWithArray(array)
+   menu:setPosition(ccp(160, visibleSize.height - 40))
+   
+   return menu
 end
 
 local function main()
-   cclog("lobisdk-test")
-
-   local visibleSize = CCDirector:sharedDirector():getVisibleSize()
-   local origin = CCDirector:sharedDirector():getVisibleOrigin()
-
-   -- cclog("(%d , %d) %d x %d", origin.x, origin.y, visibleSize.width, visibleSize.height)
    local layerMenu = CCLayer:create()
-   local openChat = CCLabelTTF:create()
-   openChat:setFontSize(40)
-   openChat:setString("Open Chat")
-
-   local openChatMenu = CCMenuItemLabel:create(openChat)
-   openChatMenu:registerScriptTapHandler(openChatHandler)
-
-   local menu = CCMenu:createWithItem(openChatMenu)
-   menu:setPosition(ccp(100, visibleSize.height - 40))
+   local menu = createMenu({
+       ["Open Chat"]=openChatHandler,
+       ["Debug Reset"]=debugResetHandler
+   })
+   menu:setPosition(ccp(160, visibleSize.height - 40))
    layerMenu:addChild(menu)
    
    local sceneGame = CCScene:create()

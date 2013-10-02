@@ -7,6 +7,7 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "Lua_web_socket.h"
 #endif
+#include "LuaLobi.h"
 
 using namespace CocosDenshion;
 
@@ -35,6 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // register lua engine
     CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
+    LuaLobi::registerLobiInterface(pEngine->getLuaStack()->getLuaState());
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
     CCLuaStack *pStack = pEngine->getLuaStack();

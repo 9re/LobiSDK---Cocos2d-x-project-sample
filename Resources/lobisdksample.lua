@@ -13,8 +13,12 @@ local function cclog(...)
    print(string.format(...))
 end
 
-local function openChatHandler()
+local function showChatViewHandler()
    LobiSDK:showChatView()
+end
+
+local function openChatWithGroupExIdHandler()
+   LobiSDK:openChatWithGroupId("111", "aaa")
 end
 
 local function debugResetHandler()
@@ -24,7 +28,6 @@ end
 local function createMenuItem(labelName, callback, y)
    local label = CCLabelTTF:create()
    label:setFontSize(30)
-   label:setHorizontalAlignment(kCCTextAlignmentRight)
    label:setString(labelName)
 
    local menuItem = CCMenuItemLabel:create(label)
@@ -39,7 +42,7 @@ local function createMenu(items)
    local i = 0
    for label, handler in pairs(items)
    do
-      array:addObject(createMenuItem(label, handler, -60 * i))
+      array:addObject(createMenuItem(label, handler, -80 * i))
       i = i + 1
    end
    
@@ -52,10 +55,11 @@ end
 local function main()
    local layerMenu = CCLayer:create()
    local menu = createMenu({
-       ["Open Chat"]=openChatHandler,
+       ["Show Chat"]=showChatViewHandler,
+       ["Open Chat With Group ExId"]=openChatWithGroupExIdHandler,
        ["Debug Reset"]=debugResetHandler
    })
-   menu:setPosition(ccp(160, visibleSize.height - 40))
+   menu:setPosition(ccp(240, visibleSize.height - 40))
    layerMenu:addChild(menu)
    
    local sceneGame = CCScene:create()

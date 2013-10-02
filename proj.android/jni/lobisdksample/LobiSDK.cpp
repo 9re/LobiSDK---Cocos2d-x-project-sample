@@ -21,10 +21,22 @@ void LobiSDK::showChatView()
 
 void LobiSDK::openChatWithGroupId(const char *exId, const char *name)
 {
-    
+    //(Ljava/lang/String;Ljava/lang/String;)V
+    JniMethodInfo m;
+    if (JniHelper::getStaticMethodInfo(m, JAVA_CLASS_NAME, "openChatWithGroupID", "(Ljava/lang/String;Ljava/lang/String;)V"))
+    {
+        jstring jstrExId = m.env->NewStringUTF(exId);
+        jstring jstrName = m.env->NewStringUTF(name);
+        
+        m.env->CallStaticVoidMethod(m.classID, m.methodID, jstrExId, jstrName);
+        
+        m.env->DeleteLocalRef(jstrExId);
+        m.env->DeleteLocalRef(jstrName);
+        m.env->DeleteLocalRef(m.classID);
+    }
 }
 
-void LobiSDK::debugRest()
+void LobiSDK::debugReset()
 {
     JniMethodInfo m;
     if (JniHelper::getStaticMethodInfo(m, JAVA_CLASS_NAME, "debugReset", "()V"))

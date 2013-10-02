@@ -10,7 +10,7 @@ public:
     static const char *JAVA_CLASS_NAME;
     static void showChatView();
     static void openChatWithGroupId(const char *exId, const char *name);
-    static void debugRest();
+    static void debugReset();
 }; // class LobiSDK
 
 } // namespace lobisdk

@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
+Copyright (c) 2010-2013 cocos2d-x.org
 
 http://www.cocos2d-x.org
 
@@ -22,38 +22,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 package co.lobi.cocos2dx.sample;
-import org.cocos2dx.lib.Cocos2dxActivity;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import org.cocos2dx.lib.*;
+import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
+
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.os.Message;
+import android.util.Log;
+import android.view.Gravity;
+import android.widget.FrameLayout;
 
-public class LobiSDKCocos2dXPorjectSample extends Cocos2dxActivity{
-	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-	}
+import com.kayac.nakamap.sdk.view.NakamapBadgeView;
+
+public abstract class CustomCocos2dxActivity extends Cocos2dxActivity implements Cocos2dxHelperListener {
+    protected Cocos2dxGLSurfaceView mGLSurfaceView;
 	
-	public Cocos2dxGLSurfaceView onCreateGLSurfaceView() {
-    	return new LuaGLSurfaceView(this);
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // dirty hack
+        FrameLayout parent =
+            (FrameLayout) mGLSurfaceView.getParent();
+
+        FrameLayout.LayoutParams params =
+            new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.TOP|Gravity.RIGHT;
+        //add badge view
+        NakamapBadgeView badgeView = new NakamapBadgeView(this);
+        parent.addView(badgeView, params);
     }
 
-    static {
-        System.loadLibrary("cocos2dlua");
-    }
-}
-
-class LuaGLSurfaceView extends Cocos2dxGLSurfaceView{
 	
-	public LuaGLSurfaceView(Context context){
-		super(context);
-	}
-	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	// exit program when key back is entered
-    	if (keyCode == KeyEvent.KEYCODE_BACK) {
-    		android.os.Process.killProcess(android.os.Process.myPid());
-    	}
-        return super.onKeyDown(keyCode, event);
+    public Cocos2dxGLSurfaceView onCreateView() {
+        mGLSurfaceView = new Cocos2dxGLSurfaceView(this);
+    	return mGLSurfaceView;
     }
 }

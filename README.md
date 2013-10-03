@@ -20,3 +20,7 @@ Here is an [example](https://github.com/9re/LobiSDK---Cocos2d-x-project-sample/b
 Here is an [example](https://github.com/9re/LobiSDK---Cocos2d-x-project-sample/blob/master/Classes/LuaLobi.cpp) for binding LobiSDK methods to lua. These methods are used from [this lua script](https://github.com/9re/LobiSDK---Cocos2d-x-project-sample/blob/master/Resources/lobisdksample.lua).
 
 This is an [example](https://github.com/9re/LobiSDK---Cocos2d-x-project-sample/blob/master/proj.android/src/co/lobi/cocos2dx/sample/CustomCocos2dxActivity.java) of overriding cocos2d-x default layout to show LobiSDK badge view.
+
+==================================
+
+[LobiSDK](http://developer.lobi.co/) is a free and easy chat sdk for games & apps.

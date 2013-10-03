@@ -21,7 +21,6 @@ void LobiSDK::showChatView()
 
 void LobiSDK::openChatWithGroupId(const char *exId, const char *name)
 {
-    //(Ljava/lang/String;Ljava/lang/String;)V
     JniMethodInfo m;
     if (JniHelper::getStaticMethodInfo(m, JAVA_CLASS_NAME, "openChatWithGroupID", "(Ljava/lang/String;Ljava/lang/String;)V"))
     {

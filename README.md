@@ -1,4 +1,18 @@
 LobiSDK + Cocos2d-x-project-sample
+
+==================================
+
+Go down to cocos2dx home and clone this repo under projects/.
+
+Build as usual cocos2dx project.
+
+```sh
+$ cd $COCOS2DX_ROOT/projects
+$ git clone git@github.com:9re/LobiSDK---Cocos2d-x-project-sample.git
+$ cd proj.android
+$ ./build_native.sh && ant debug && ant installd
+```
+
 ==================================
 
 Cocos2d-x androidプロジェクトでのLobiSDKの使い方

@@ -27,14 +27,29 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Gravity;
+import android.widget.FrameLayout;
+
+import com.kayac.nakamap.sdk.view.NakamapBadgeView;
 
 public class LobiSDKCocos2dXPorjectSample extends CustomCocos2dxActivity {
-	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-	}
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        FrameLayout parent = getParentView();
+        
+        FrameLayout.LayoutParams params =
+            new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.TOP|Gravity.RIGHT;
+        //add badge view
+        NakamapBadgeView badgeView = new NakamapBadgeView(this);
+        parent.addView(badgeView, params);
+    }
 	
-	public Cocos2dxGLSurfaceView onCreateGLSurfaceView() {
-    	return new LuaGLSurfaceView(this);
+    public Cocos2dxGLSurfaceView onCreateGLSurfaceView() {
+        return new LuaGLSurfaceView(this);
     }
 
     static {
@@ -44,14 +59,14 @@ public class LobiSDKCocos2dXPorjectSample extends CustomCocos2dxActivity {
 
 class LuaGLSurfaceView extends Cocos2dxGLSurfaceView{
 	
-	public LuaGLSurfaceView(Context context){
-		super(context);
-	}
+    public LuaGLSurfaceView(Context context){
+        super(context);
+    }
 	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
     	// exit program when key back is entered
     	if (keyCode == KeyEvent.KEYCODE_BACK) {
-    		android.os.Process.killProcess(android.os.Process.myPid());
+            android.os.Process.killProcess(android.os.Process.myPid());
     	}
         return super.onKeyDown(keyCode, event);
     }

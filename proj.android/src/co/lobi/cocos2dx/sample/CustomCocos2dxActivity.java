@@ -32,33 +32,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.FrameLayout;
 
-import com.kayac.nakamap.sdk.view.NakamapBadgeView;
-
 public abstract class CustomCocos2dxActivity extends Cocos2dxActivity implements Cocos2dxHelperListener {
-    protected Cocos2dxGLSurfaceView mGLSurfaceView;
+    private Cocos2dxGLSurfaceView mGLSurfaceView;
+    private FrameLayout mParentView;
 	
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // dirty hack
-        FrameLayout parent =
+        mParentView =
             (FrameLayout) mGLSurfaceView.getParent();
-
-        FrameLayout.LayoutParams params =
-            new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.TOP|Gravity.RIGHT;
-        //add badge view
-        NakamapBadgeView badgeView = new NakamapBadgeView(this);
-        parent.addView(badgeView, params);
     }
 
-	
+    protected FrameLayout getParentView() {
+        return mParentView;
+    }
+    
     public Cocos2dxGLSurfaceView onCreateView() {
         mGLSurfaceView = new Cocos2dxGLSurfaceView(this);
     	return mGLSurfaceView;
